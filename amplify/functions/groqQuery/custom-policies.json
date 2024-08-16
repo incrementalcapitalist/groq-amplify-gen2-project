@@ -1,0 +1,9 @@
+{
+  "groqQueryLambdaPolicy": {
+    "Effect": "Allow",
+    "Action": [
+      "ssm:GetParameter"
+    ],
+    "Resource": "arn:aws:ssm:*:*:parameter/groq/api-key"
+  }
+}
