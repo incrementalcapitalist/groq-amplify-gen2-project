@@ -1,15 +1,15 @@
 import { Groq } from 'groq-sdk';
 import { SSMClient, GetParameterCommand } from '@aws-sdk/client-ssm';
 
-const ssmClient = new SSMClient();
+const ssmClient = new SSMClient({});
 
-async function getGroqApiKey() {
+async function getGroqApiKey(): Promise<string> {
   const command = new GetParameterCommand({
     Name: '/groq/api-key',
     WithDecryption: true,
   });
   const response = await ssmClient.send(command);
-  return response.Parameter!.Value!;
+  return response.Parameter?.Value || '';
 }
 
 export const handler = async (event: any) => {
@@ -43,7 +43,7 @@ export const handler = async (event: any) => {
       throw new Error('No content received from Groq');
     }
 
-    const tickers = content.split(',').map(ticker => ticker.trim());
+    const tickers = content.split(',').map((ticker: string) => ticker.trim());
     if (!tickers.includes(`NASDAQ:${symbol}`)) {
       tickers.unshift(`NASDAQ:${symbol}`);
     }

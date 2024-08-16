@@ -1,12 +1,9 @@
-import { defineFunction, Permissions } from '@aws-amplify/backend';
-import { Function } from '@aws-amplify/backend-cli';
+import { defineBackend } from '@aws-amplify/backend';
 
-export const groqQueryFunction = defineFunction({
-  name: 'groqQuery',
-  handler: 'index.handler',
-  runtime: Function.Runtime.NODEJS_18,
-  entrypoint: 'index.ts',
-  permissions: [
-    Permissions.custom('groqQueryLambdaPolicy')
-  ]
+export const groqQueryFunction = defineBackend({
+  type: 'function',
+  definition: {
+    name: 'groqQuery',
+    entry: 'index.ts'
+  }
 });
