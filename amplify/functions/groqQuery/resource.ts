@@ -1,9 +1,6 @@
-import { defineBackend } from '@aws-amplify/backend';
+import { defineFunction } from '@aws-amplify/backend';
 
-export const groqQueryFunction = defineBackend({
-  type: 'function',
-  definition: {
-    name: 'groqQuery',
-    entry: 'index.ts'
-  }
+export const groqQueryFunction = defineFunction({
+  name: 'groqQuery',
+  entry: 'index.ts'
 });
